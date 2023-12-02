@@ -6,7 +6,7 @@
 /*   By: tcharuel <tcharuel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 11:38:28 by tcharuel          #+#    #+#             */
-/*   Updated: 2023/12/02 14:46:34 by tcharuel         ###   ########.fr       */
+/*   Updated: 2023/12/02 16:49:12 by tcharuel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,10 @@ int	get_stack_length(t_stack_node *stack)
 
 void	free_stack(t_stack_node *stack)
 {
-	if (stack->next)
-		free_stack(stack->next);
-	free(stack);
+	if (stack)
+	{
+		if (stack->next)
+			free_stack(stack->next);
+		free(stack);
+	}
 }

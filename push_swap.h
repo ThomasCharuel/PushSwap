@@ -6,7 +6,7 @@
 /*   By: tcharuel <tcharuel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/01 17:20:47 by tcharuel          #+#    #+#             */
-/*   Updated: 2023/12/02 15:54:05 by tcharuel         ###   ########.fr       */
+/*   Updated: 2023/12/02 16:47:00 by tcharuel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ typedef struct s_stack_node
 
 t_stack_node			*get_stack_from_args(int argc, char **argv);
 
+bool					is_str_numeric(char *str);
 bool					stack_has_duplicates(t_stack_node *stack);
 
 t_stack_node			*get_last_node(t_stack_node *stack);

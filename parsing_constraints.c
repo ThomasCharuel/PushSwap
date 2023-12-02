@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   stack_constraints.c                                :+:      :+:    :+:   */
+/*   parsing_constraints.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tcharuel <tcharuel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 15:53:31 by tcharuel          #+#    #+#             */
-/*   Updated: 2023/12/02 15:59:43 by tcharuel         ###   ########.fr       */
+/*   Updated: 2023/12/02 16:52:05 by tcharuel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,4 +32,22 @@ bool	stack_has_duplicates(t_stack_node *stack)
 		stack = stack->next;
 	}
 	return (false);
+}
+
+bool	is_str_numeric(char *str)
+{
+	int	i;
+	int	digit_count;
+
+	digit_count = 0;
+	i = 0;
+	while (str[i])
+	{
+		if (ft_isdigit(str[i]))
+			digit_count++;
+		else if (!ft_isspace(str[i]) && !(str[i] == '-' || str[i] == '+'))
+			return (false);
+		i++;
+	}
+	return (digit_count > 0);
 }
