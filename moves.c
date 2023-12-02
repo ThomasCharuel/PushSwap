@@ -6,7 +6,7 @@
 /*   By: tcharuel <tcharuel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 12:25:22 by tcharuel          #+#    #+#             */
-/*   Updated: 2023/12/02 14:51:22 by tcharuel         ###   ########.fr       */
+/*   Updated: 2023/12/02 15:05:15 by tcharuel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,8 +62,27 @@ static void	stack_push(t_stack_node **stack_from, t_stack_node **stack_to)
 
 static void	stack_rotate(t_stack_node **stack, bool reverse)
 {
-	(void)reverse;
-	(void)stack;
+	t_stack_node	*last_node;
+
+	if (get_stack_length(*stack) < 2)
+		return ;
+	last_node = get_last_node(*stack);
+	if (reverse)
+	{
+		last_node->next = *stack;
+		(*stack)->prev = last_node;
+		*stack = (*stack)->next;
+		(*stack)->prev = NULL;
+		last_node->next->next = NULL;
+	}
+	else
+	{
+		last_node->prev->next = NULL;
+		last_node->prev = NULL;
+		last_node->next = *stack;
+		(*stack)->prev = last_node;
+		*stack = last_node;
+	}
 }
 
 static void	print_move(t_move move)
