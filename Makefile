@@ -6,13 +6,13 @@
 #    By: tcharuel <tcharuel@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/02 13:33:40 by tcharuel          #+#    #+#              #
-#    Updated: 2023/12/02 12:38:46 by tcharuel         ###   ########.fr        #
+#    Updated: 2023/12/02 14:24:13 by tcharuel         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = push_swap
 
-SOURCES = main.c parse_args.c stack_utils.c \
+SOURCES = main.c parse_args.c stack_utils.c stack_display.c \
 			algorithm.c moves.c
 
 CC = cc

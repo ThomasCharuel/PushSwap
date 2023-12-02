@@ -6,7 +6,7 @@
 /*   By: tcharuel <tcharuel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/01 17:20:47 by tcharuel          #+#    #+#             */
-/*   Updated: 2023/12/02 13:54:07 by tcharuel         ###   ########.fr       */
+/*   Updated: 2023/12/02 14:46:37 by tcharuel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,11 +39,14 @@ typedef struct s_stack_node
 
 t_stack_node			*get_stack_from_args(int argc, char **argv);
 
-void					display_stack(t_stack_node *stack);
+t_stack_node			*get_last_node(t_stack_node *stack);
 int						prepend_to_stack(t_stack_node **stack, int number);
 int						append_to_stack(t_stack_node **stack, int number);
 int						get_stack_length(t_stack_node *stack);
 void					free_stack(t_stack_node *stack);
+
+void					display_stacks(t_stack_node *stack_a,
+							t_stack_node *stack_b);
 
 void					sort_stack(t_stack_node **stack);
 

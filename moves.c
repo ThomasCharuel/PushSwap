@@ -6,7 +6,7 @@
 /*   By: tcharuel <tcharuel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 12:25:22 by tcharuel          #+#    #+#             */
-/*   Updated: 2023/12/02 14:14:30 by tcharuel         ###   ########.fr       */
+/*   Updated: 2023/12/02 14:51:22 by tcharuel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,10 +40,24 @@ static void	stack_swap(t_stack_node **stack)
 	node->next->next = NULL;
 }
 
-static void	stack_push(t_stack_node **stack_a, t_stack_node **stack_b)
+static void	stack_push(t_stack_node **stack_from, t_stack_node **stack_to)
 {
-	(void)stack_a;
-	(void)stack_b;
+	t_stack_node	*stack_to_last_node;
+	t_stack_node	*stack_from_last_node;
+
+	stack_from_last_node = get_last_node(*stack_from);
+	if (!stack_from_last_node)
+		return ;
+	if (stack_from_last_node->prev)
+		stack_from_last_node->prev->next = NULL;
+	else
+		*stack_from = NULL;
+	stack_to_last_node = get_last_node(*stack_to);
+	if (stack_to_last_node)
+		stack_to_last_node->next = stack_from_last_node;
+	else
+		*stack_to = stack_from_last_node;
+	stack_from_last_node->prev = stack_to_last_node;
 }
 
 static void	stack_rotate(t_stack_node **stack, bool reverse)
@@ -86,9 +100,9 @@ void	do_move(t_move move, t_stack_node **stack_a, t_stack_node **stack_b)
 	if (move == MOVE_SB || move == MOVE_SS)
 		stack_swap(stack_b);
 	if (move == MOVE_PA)
-		stack_push(stack_a, stack_b);
-	if (move == MOVE_PB)
 		stack_push(stack_b, stack_a);
+	if (move == MOVE_PB)
+		stack_push(stack_a, stack_b);
 	if (move == MOVE_RA || move == MOVE_RR)
 		stack_rotate(stack_a, false);
 	if (move == MOVE_RB || move == MOVE_RR)

@@ -6,18 +6,19 @@
 /*   By: tcharuel <tcharuel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 11:38:28 by tcharuel          #+#    #+#             */
-/*   Updated: 2023/12/02 14:01:00 by tcharuel         ###   ########.fr       */
+/*   Updated: 2023/12/02 14:46:34 by tcharuel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	display_stack(t_stack_node *stack)
+t_stack_node	*get_last_node(t_stack_node *stack)
 {
 	if (!stack)
-		return ;
-	display_stack(stack->next);
-	ft_printf("%d\n", stack->number);
+		return (NULL);
+	while (stack->next)
+		stack = stack->next;
+	return (stack);
 }
 
 int	prepend_to_stack(t_stack_node **stack, int number)

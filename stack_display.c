@@ -1,27 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   algorithm.c                                        :+:      :+:    :+:   */
+/*   stack_display.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tcharuel <tcharuel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/02 12:21:22 by tcharuel          #+#    #+#             */
-/*   Updated: 2023/12/02 14:53:44 by tcharuel         ###   ########.fr       */
+/*   Created: 2023/12/02 14:18:36 by tcharuel          #+#    #+#             */
+/*   Updated: 2023/12/02 14:46:36 by tcharuel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	sort_stack(t_stack_node **stack_a)
+static void	display_stack(t_stack_node *stack)
 {
-	t_stack_node	*stack_b;
+	if (!stack)
+		return ;
+	display_stack(stack->next);
+	ft_printf("%d\n", stack->number);
+}
 
-	stack_b = NULL;
-	display_stacks(*stack_a, stack_b);
-	do_move(MOVE_PB, stack_a, &stack_b);
-	display_stacks(*stack_a, stack_b);
-	do_move(MOVE_PA, stack_a, &stack_b);
-	display_stacks(*stack_a, stack_b);
-	if (stack_b)
-		ft_printf("Stack B not empty\n");
+void	display_stacks(t_stack_node *stack_a, t_stack_node *stack_b)
+{
+	ft_printf("Stack A:\n--\n");
+	display_stack(stack_a);
+	ft_printf("--\nStack B:\n--\n");
+	display_stack(stack_b);
+	ft_printf("--\n");
 }
