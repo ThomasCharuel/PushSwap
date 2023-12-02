@@ -6,7 +6,7 @@
 /*   By: tcharuel <tcharuel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/01 17:20:47 by tcharuel          #+#    #+#             */
-/*   Updated: 2023/12/02 16:47:00 by tcharuel         ###   ########.fr       */
+/*   Updated: 2023/12/02 19:14:24 by tcharuel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,10 @@ typedef int				t_move;
 typedef struct s_stack_node
 {
 	int					number;
+	struct s_stack_node	*target_node;
+	int					move_cost;
+	int					ra_count;
+	int					rb_count;
 	struct s_stack_node	*prev;
 	struct s_stack_node	*next;
 }						t_stack_node;
@@ -56,5 +60,9 @@ void					sort_stack(t_stack_node **stack);
 
 void					do_move(t_move move, t_stack_node **stack_a,
 							t_stack_node **stack_b);
+
+void					set_target_nodes(t_stack_node *stack_a,
+							t_stack_node *stack_b);
+void					set_moves_cost(t_stack_node *stack_a);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: tcharuel <tcharuel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 15:01:58 by tcharuel          #+#    #+#             */
-/*   Updated: 2023/12/02 17:08:01 by tcharuel         ###   ########.fr       */
+/*   Updated: 2023/12/02 19:06:17 by tcharuel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,9 @@
 # define BASE_DECIMAL "0123456789"
 # define BASE_HEX_LOWERCASE "0123456789abcdef"
 # define BASE_HEX_UPPERCASE "0123456789ABCDEF"
+
+# define MIN(a, b) (((a) < (b)) ? (a) : (b))
+# define MAX(a, b) (((a) > (b)) ? (a) : (b))
 
 typedef struct s_substring
 {
