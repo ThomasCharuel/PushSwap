@@ -1,33 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   stack_constraints.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tcharuel <tcharuel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/01 16:44:20 by tcharuel          #+#    #+#             */
-/*   Updated: 2023/12/02 16:00:09 by tcharuel         ###   ########.fr       */
+/*   Created: 2023/12/02 15:53:31 by tcharuel          #+#    #+#             */
+/*   Updated: 2023/12/02 15:59:43 by tcharuel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-int	main(int argc, char **argv)
+static bool	stack_has_value(t_stack_node *stack, int value)
 {
-	t_stack_node	*stack_a;
-
-	if (argc > 1)
+	while (stack)
 	{
-		stack_a = get_stack_from_args(argc, argv);
-		if (!stack_a || stack_has_duplicates(stack_a))
-		{
-			if (stack_a)
-				free_stack(stack_a);
-			ft_putstr_fd("Error\n", STDERR_FILENO);
-			return (0);
-		}
-		sort_stack(&stack_a);
-		free_stack(stack_a);
+		if (stack->number == value)
+			return (true);
+		stack = stack->next;
 	}
-	return (0);
+	return (false);
+}
+
+bool	stack_has_duplicates(t_stack_node *stack)
+{
+	while (stack)
+	{
+		if (stack_has_value(stack->next, stack->number))
+			return (true);
+		stack = stack->next;
+	}
+	return (false);
 }
