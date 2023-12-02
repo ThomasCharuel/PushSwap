@@ -6,7 +6,7 @@
 /*   By: tcharuel <tcharuel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/01 17:20:47 by tcharuel          #+#    #+#             */
-/*   Updated: 2023/12/02 14:46:37 by tcharuel         ###   ########.fr       */
+/*   Updated: 2023/12/02 15:07:43 by tcharuel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ void					free_stack(t_stack_node *stack);
 void					display_stacks(t_stack_node *stack_a,
 							t_stack_node *stack_b);
 
+bool					is_stack_sorted(t_stack_node *stack_a);
 void					sort_stack(t_stack_node **stack);
 
 void					do_move(t_move move, t_stack_node **stack_a,
