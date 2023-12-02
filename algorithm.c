@@ -1,31 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   algorithm.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tcharuel <tcharuel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/01 16:44:20 by tcharuel          #+#    #+#             */
-/*   Updated: 2023/12/02 13:47:21 by tcharuel         ###   ########.fr       */
+/*   Created: 2023/12/02 12:21:22 by tcharuel          #+#    #+#             */
+/*   Updated: 2023/12/02 14:15:11 by tcharuel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-int	main(int argc, char **argv)
+void	sort_stack(t_stack_node **stack_a)
 {
-	t_stack_node	*stack_a;
+	t_stack_node	*stack_b;
 
-	if (argc > 1)
-	{
-		stack_a = get_stack_from_args(argc, argv);
-		if (!stack_a)
-		{
-			ft_putstr_fd("Error\n", STDERR_FILENO);
-			return (0);
-		}
-		sort_stack(&stack_a);
-		free_stack(stack_a);
-	}
-	return (0);
+	stack_b = NULL;
+	display_stack(*stack_a);
+	do_move(MOVE_SA, stack_a, &stack_b);
+	display_stack(*stack_a);
 }

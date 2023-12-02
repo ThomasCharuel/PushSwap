@@ -6,7 +6,7 @@
 /*   By: tcharuel <tcharuel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 12:13:03 by tcharuel          #+#    #+#             */
-/*   Updated: 2023/12/02 12:17:17 by tcharuel         ###   ########.fr       */
+/*   Updated: 2023/12/02 13:55:01 by tcharuel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ static t_stack_node	*get_stack_from_str(char *str)
 	i = 0;
 	while (int_arr[i])
 	{
-		if (append_to_stack(&stack, atoi(int_arr[i++])) < 0)
+		if (prepend_to_stack(&stack, atoi(int_arr[i++])) < 0)
 		{
 			free_stack(stack);
 			free_strs(int_arr);
@@ -55,7 +55,7 @@ static t_stack_node	*get_stack_from_strs(int str_count, char **strs)
 	i = 0;
 	while (i < str_count)
 	{
-		if (append_to_stack(&stack, atoi(strs[i++])) < 0)
+		if (prepend_to_stack(&stack, atoi(strs[i++])) < 0)
 		{
 			free_stack(stack);
 			return (NULL);
