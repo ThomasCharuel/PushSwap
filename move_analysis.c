@@ -6,7 +6,7 @@
 /*   By: tcharuel <tcharuel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 18:14:37 by tcharuel          #+#    #+#             */
-/*   Updated: 2023/12/03 15:26:20 by tcharuel         ###   ########.fr       */
+/*   Updated: 2023/12/03 17:54:49 by tcharuel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,8 @@ void	set_moves_cost(t_stack_node *stack, bool is_stack_a)
 	}
 }
 
-void	set_target_nodes(t_stack_node *stack_from, t_stack_node *stack_to)
+void	set_target_nodes(t_stack_node *stack_from, t_stack_node *stack_to,
+		bool is_stack_a)
 {
 	t_stack_node	*target_stack;
 
@@ -78,12 +79,24 @@ void	set_target_nodes(t_stack_node *stack_from, t_stack_node *stack_to)
 		stack_from->target_node = target_stack;
 		while (target_stack)
 		{
-			if ((target_stack->number < stack_from->number
-					&& (target_stack->number > stack_from->target_node->number
-						|| stack_from->target_node->number > stack_from->number))
-				|| (stack_from->target_node->number > stack_from->number
-					&& target_stack->number > stack_from->target_node->number))
-				stack_from->target_node = target_stack;
+			if (is_stack_a)
+			{
+				if ((target_stack->number < stack_from->number
+						&& (target_stack->number > stack_from->target_node->number
+							|| stack_from->target_node->number > stack_from->number))
+					|| (stack_from->target_node->number > stack_from->number
+						&& target_stack->number > stack_from->target_node->number))
+					stack_from->target_node = target_stack;
+			}
+			else
+			{
+				if ((target_stack->number > stack_from->number
+						&& (target_stack->number < stack_from->target_node->number
+							|| stack_from->target_node->number < stack_from->number))
+					|| (stack_from->target_node->number < stack_from->number
+						&& target_stack->number < stack_from->target_node->number))
+					stack_from->target_node = target_stack;
+			}
 			target_stack = target_stack->next;
 		}
 		stack_from = stack_from->next;

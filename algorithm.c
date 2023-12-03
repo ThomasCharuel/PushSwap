@@ -6,7 +6,7 @@
 /*   By: tcharuel <tcharuel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 12:21:22 by tcharuel          #+#    #+#             */
-/*   Updated: 2023/12/03 15:31:38 by tcharuel         ###   ########.fr       */
+/*   Updated: 2023/12/03 18:08:52 by tcharuel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,15 +125,46 @@ static void	move_optimal_node(t_stack_node **stack_from,
 {
 	t_stack_node	*optimal_node;
 
-	set_target_nodes(*stack_from, *stack_to);
+	set_target_nodes(*stack_from, *stack_to, move_from_a);
 	set_moves_cost(*stack_from, move_from_a);
 	optimal_node = get_optimal_node_to_move(*stack_from);
-	do_r_moves(optimal_node, stack_from, stack_to);
-	do_rr_moves(optimal_node, stack_from, stack_to);
 	if (move_from_a)
+	{
+		do_r_moves(optimal_node, stack_from, stack_to);
+		do_rr_moves(optimal_node, stack_from, stack_to);
 		do_move(MOVE_PB, stack_from, stack_to);
+	}
 	else
+	{
+		do_r_moves(optimal_node, stack_to, stack_from);
+		do_rr_moves(optimal_node, stack_to, stack_from);
 		do_move(MOVE_PA, stack_to, stack_from);
+	}
+}
+
+void	rotate_stack_until_ordered(t_stack_node **stack)
+{
+	int	stack_max_index;
+	int	stack_length;
+
+	stack_max_index = get_stack_max_index(*stack);
+	stack_length = get_stack_length(*stack, false);
+	if (stack_max_index < stack_length / 2)
+	{
+		while (stack_max_index)
+		{
+			do_move(MOVE_RRA, stack, NULL);
+			stack_max_index--;
+		}
+	}
+	else
+	{
+		while (stack_max_index < stack_length)
+		{
+			do_move(MOVE_RA, stack, NULL);
+			stack_max_index++;
+		}
+	}
 }
 
 void	sort_stack(t_stack_node **stack_a)
@@ -153,10 +184,9 @@ void	sort_stack(t_stack_node **stack_a)
 			while (get_stack_length(*stack_a, false) > 3)
 				move_optimal_node(stack_a, &stack_b, true);
 			sort_three(stack_a);
-			display_stacks(*stack_a, stack_b);
 			while (stack_b)
 				move_optimal_node(&stack_b, stack_a, false);
-			display_stacks(*stack_a, stack_b);
+			rotate_stack_until_ordered(stack_a);
 		}
 	}
 }

@@ -7,14 +7,29 @@ if [ $# -eq 0 ]; then
 fi
 
 X=$1  # Number of integers to generate
+MIN_INT=-2147483648  # Minimum integer value
+MAX_INT=2147483647   # Maximum integer value
 
-# Initialize an empty string to hold the integers
-output=""
+declare -A num_array  # Associative array to store unique numbers
 
-# Generate X random integers and append them to the output string
-for (( i = 0; i < X; i++ )); do
-    output+="$(( RANDOM )) "
+# Function to generate a random number within a range
+function rand() {
+    # Generate a number in the range of 0 to (MAX_INT - MIN_INT)
+    local range=$((MAX_INT - MIN_INT))
+    local random_num=$(( $RANDOM + ($RANDOM << 15) + ($RANDOM << 30) ))
+
+    # Adjust the number to fit in the range of MIN_INT to MAX_INT
+    echo $(( random_num % range + MIN_INT ))
+}
+
+# Generate X unique random integers
+while [ ${#num_array[@]} -lt $X ]; do
+    rand_num=$(rand)
+    num_array["$rand_num"]=1
 done
 
-# Print the generated integers
-echo $output
+# Output the unique numbers
+for num in "${!num_array[@]}"; do
+    echo -n "$num "
+done
+echo

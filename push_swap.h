@@ -6,7 +6,7 @@
 /*   By: tcharuel <tcharuel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/01 17:20:47 by tcharuel          #+#    #+#             */
-/*   Updated: 2023/12/03 15:23:04 by tcharuel         ###   ########.fr       */
+/*   Updated: 2023/12/03 15:35:32 by tcharuel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ void					do_move(t_move move, t_stack_node **stack_a,
 							t_stack_node **stack_b);
 
 void					set_target_nodes(t_stack_node *stack_a,
-							t_stack_node *stack_b);
+							t_stack_node *stack_b, bool is_stack_a);
 void					set_moves_cost(t_stack_node *stack_a, bool is_stack_a);
 
 #endif

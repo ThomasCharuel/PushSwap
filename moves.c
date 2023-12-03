@@ -6,7 +6,7 @@
 /*   By: tcharuel <tcharuel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 12:25:22 by tcharuel          #+#    #+#             */
-/*   Updated: 2023/12/03 15:30:40 by tcharuel         ###   ########.fr       */
+/*   Updated: 2023/12/03 17:53:56 by tcharuel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,29 +15,30 @@
 static void	stack_swap(t_stack_node **stack)
 {
 	int				length;
-	t_stack_node	*node;
+	t_stack_node	*before_last_node;
+	t_stack_node	*last_node;
 
-	node = *stack;
+	before_last_node = *stack;
 	length = get_stack_length(*stack, false);
 	if (length < 2)
 		return ;
 	else if (length == 2)
 	{
-		*stack = (*stack)->next;
-		node = *stack;
+		last_node = (*stack)->next;
+		*stack = last_node;
+		last_node->prev = NULL;
 	}
 	else
 	{
-		node = *stack;
-		while (node->next->next->next)
-			node = node->next;
-		node->next = node->next->next;
-		node = node->next;
+		while (before_last_node->next->next)
+			before_last_node = before_last_node->next;
+		last_node = before_last_node->next;
+		before_last_node->prev->next = last_node;
+		last_node->prev = before_last_node->prev;
 	}
-	node->next = node->prev;
-	node->prev = NULL;
-	node->next->prev = *stack;
-	node->next->next = NULL;
+	last_node->next = before_last_node;
+	before_last_node->next = NULL;
+	before_last_node->prev = last_node;
 }
 
 static void	stack_push(t_stack_node **stack_from, t_stack_node **stack_to)
