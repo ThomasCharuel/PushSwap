@@ -6,7 +6,7 @@
 /*   By: tcharuel <tcharuel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/01 17:20:47 by tcharuel          #+#    #+#             */
-/*   Updated: 2023/12/03 22:13:05 by tcharuel         ###   ########.fr       */
+/*   Updated: 2023/12/03 22:51:21 by tcharuel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,14 @@ void					display_stacks(t_stack_node *stack_a,
 
 bool					is_stack_sorted(t_stack_node *stack_a);
 void					sort_stack(t_stack_node **stack);
+
+int						get_stack_max_index(t_stack_node *stack);
+t_stack_node			*get_optimal_node_to_move(t_stack_node *stack);
+void					do_r_moves(t_stack_node *node, t_stack_node **stack_a,
+							t_stack_node **stack_b);
+void					do_rr_moves(t_stack_node *node, t_stack_node **stack_a,
+							t_stack_node **stack_b);
+void					rotate_stack_until_ordered(t_stack_node **stack);
 
 void					do_move(t_move move, t_stack_node **stack_a,
 							t_stack_node **stack_b);

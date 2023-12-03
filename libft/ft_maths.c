@@ -6,7 +6,7 @@
 /*   By: tcharuel <tcharuel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/03 22:34:34 by tcharuel          #+#    #+#             */
-/*   Updated: 2023/12/03 22:40:19 by tcharuel         ###   ########.fr       */
+/*   Updated: 2023/12/03 22:52:24 by tcharuel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,5 +51,5 @@ int	ft_max(int count, ...)
 		i++;
 	}
 	va_end(args);
-	return (maxValue);
+	return (max_value);
 }

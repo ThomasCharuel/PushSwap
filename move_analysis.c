@@ -6,7 +6,7 @@
 /*   By: tcharuel <tcharuel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 18:14:37 by tcharuel          #+#    #+#             */
-/*   Updated: 2023/12/03 22:47:31 by tcharuel         ###   ########.fr       */
+/*   Updated: 2023/12/03 23:24:22 by tcharuel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,17 +32,16 @@ void	set_rotations_count(t_stack_node *node, bool is_stack_a)
 void	set_node_moves(t_stack_node *node, int ra_count, int rb_count,
 		int rra_count, int rrb_count)
 {
-	node->ra_count = ra;
-	node->rb_count = rb;
-	node->rra_count = rra;
-	node->rrb_count = rrb;
+	node->ra_count = ra_count;
+	node->rb_count = rb_count;
+	node->rra_count = rra_count;
+	node->rrb_count = rrb_count;
 }
 
 void	set_moves_cost(t_stack_node *stack, bool is_stack_a)
 {
 	int	cost_with_rr;
 	int	cost_with_rrr;
-	int	cost;
 
 	while (stack)
 	{
@@ -57,9 +56,9 @@ void	set_moves_cost(t_stack_node *stack, bool is_stack_a)
 		else if (cost_with_rrr == stack->move_cost)
 			set_node_moves(stack, 0, 0, stack->rra_count, stack->rrb_count);
 		else if (stack->ra_count + stack->rrb_count == stack->move_cost)
-			set_node_moves(stack, stack->ra_count, 0, stack->rra_count, 0);
+			set_node_moves(stack, stack->ra_count, 0, 0, stack->rrb_count);
 		else
-			set_node_moves(stack, 0, stack->rb_count, 0, stack->rrb_count);
+			set_node_moves(stack, 0, stack->rb_count, stack->rra_count, 0);
 		stack = stack->next;
 	}
 }
