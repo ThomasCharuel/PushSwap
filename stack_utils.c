@@ -6,7 +6,7 @@
 /*   By: tcharuel <tcharuel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 11:38:28 by tcharuel          #+#    #+#             */
-/*   Updated: 2023/12/02 16:49:12 by tcharuel         ###   ########.fr       */
+/*   Updated: 2023/12/03 12:41:55 by tcharuel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,14 +61,17 @@ int	append_to_stack(t_stack_node **stack, int number)
 	return (1);
 }
 
-int	get_stack_length(t_stack_node *stack)
+int	get_stack_length(t_stack_node *stack, bool reverse)
 {
 	int	length;
 
 	length = 0;
 	while (stack)
 	{
-		stack = stack->next;
+		if (reverse)
+			stack = stack->prev;
+		else
+			stack = stack->next;
 		length++;
 	}
 	return (length);

@@ -6,7 +6,7 @@
 /*   By: tcharuel <tcharuel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 12:21:22 by tcharuel          #+#    #+#             */
-/*   Updated: 2023/12/03 12:37:55 by tcharuel         ###   ########.fr       */
+/*   Updated: 2023/12/03 15:31:38 by tcharuel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,49 +58,82 @@ void	sort_three(t_stack_node **stack)
 	}
 }
 
-static void	push_optimal_node_from_a_to_b(t_stack_node **stack_a,
-		t_stack_node **stack_b)
+t_stack_node	*get_optimal_node_to_move(t_stack_node *stack)
 {
 	t_stack_node	*optimal_node;
-	t_stack_node	*node;
 
-	set_target_nodes(*stack_a, *stack_b);
-	set_moves_cost(*stack_a);
-	optimal_node = *stack_a;
-	node = *stack_a;
-	while (node)
+	optimal_node = stack;
+	while (stack)
 	{
-		if (node->move_cost < optimal_node->move_cost)
-			optimal_node = node;
-		node = node->next;
+		if (stack->move_cost < optimal_node->move_cost)
+			optimal_node = stack;
+		stack = stack->next;
 	}
-	while (optimal_node->ra_count || optimal_node->rb_count)
-	{
-		if (optimal_node->ra_count && optimal_node->rb_count)
-		{
-			do_move(MOVE_RR, stack_a, stack_b);
-			optimal_node->ra_count--;
-			optimal_node->rb_count--;
-		}
-		else if (optimal_node->ra_count)
-		{
-			do_move(MOVE_RA, stack_a, stack_b);
-			optimal_node->ra_count--;
-		}
-		else if (optimal_node->rb_count)
-		{
-			do_move(MOVE_RB, stack_a, stack_b);
-			optimal_node->rb_count--;
-		}
-	}
-	do_move(MOVE_PB, stack_a, stack_b);
-	display_stacks(*stack_a, *stack_b);
+	return (optimal_node);
 }
 
-static void	push_optimal_node_from_b_to_a(t_stack_node **stack_a,
+void	do_r_moves(t_stack_node *node, t_stack_node **stack_a,
 		t_stack_node **stack_b)
 {
-	do_move(MOVE_PA, stack_a, stack_b);
+	while (node->ra_count || node->rb_count)
+	{
+		if (node->ra_count && node->rb_count)
+		{
+			do_move(MOVE_RR, stack_a, stack_b);
+			node->ra_count--;
+			node->rb_count--;
+		}
+		else if (node->ra_count)
+		{
+			do_move(MOVE_RA, stack_a, stack_b);
+			node->ra_count--;
+		}
+		else
+		{
+			do_move(MOVE_RB, stack_a, stack_b);
+			node->rb_count--;
+		}
+	}
+}
+
+void	do_rr_moves(t_stack_node *node, t_stack_node **stack_a,
+		t_stack_node **stack_b)
+{
+	while (node->rra_count || node->rrb_count)
+	{
+		if (node->rra_count && node->rrb_count)
+		{
+			do_move(MOVE_RRR, stack_a, stack_b);
+			node->rra_count--;
+			node->rrb_count--;
+		}
+		else if (node->rra_count)
+		{
+			do_move(MOVE_RRA, stack_a, stack_b);
+			node->rra_count--;
+		}
+		else
+		{
+			do_move(MOVE_RRB, stack_a, stack_b);
+			node->rrb_count--;
+		}
+	}
+}
+
+static void	move_optimal_node(t_stack_node **stack_from,
+		t_stack_node **stack_to, bool move_from_a)
+{
+	t_stack_node	*optimal_node;
+
+	set_target_nodes(*stack_from, *stack_to);
+	set_moves_cost(*stack_from, move_from_a);
+	optimal_node = get_optimal_node_to_move(*stack_from);
+	do_r_moves(optimal_node, stack_from, stack_to);
+	do_rr_moves(optimal_node, stack_from, stack_to);
+	if (move_from_a)
+		do_move(MOVE_PB, stack_from, stack_to);
+	else
+		do_move(MOVE_PA, stack_to, stack_from);
 }
 
 void	sort_stack(t_stack_node **stack_a)
@@ -108,7 +141,6 @@ void	sort_stack(t_stack_node **stack_a)
 	t_stack_node	*stack_b;
 
 	stack_b = NULL;
-	display_stacks(*stack_a, stack_b);
 	if (!is_stack_sorted(*stack_a))
 	{
 		if (!(*stack_a)->next->next)
@@ -118,14 +150,13 @@ void	sort_stack(t_stack_node **stack_a)
 		else
 		{
 			do_move(MOVE_PB, stack_a, &stack_b);
-			while (get_stack_length(*stack_a) > 3)
-				push_optimal_node_from_a_to_b(stack_a, &stack_b);
-			display_stacks(*stack_a, stack_b);
+			while (get_stack_length(*stack_a, false) > 3)
+				move_optimal_node(stack_a, &stack_b, true);
 			sort_three(stack_a);
+			display_stacks(*stack_a, stack_b);
 			while (stack_b)
-				push_optimal_node_from_b_to_a(stack_a, &stack_b);
-			// Set proper order by rotating as needed.
-			// Utiliser la mediane pour savoir dans quel sens il faut sort
+				move_optimal_node(&stack_b, stack_a, false);
+			display_stacks(*stack_a, stack_b);
 		}
 	}
 }

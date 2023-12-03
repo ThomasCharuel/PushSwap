@@ -6,7 +6,7 @@
 /*   By: tcharuel <tcharuel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 12:25:22 by tcharuel          #+#    #+#             */
-/*   Updated: 2023/12/02 15:05:15 by tcharuel         ###   ########.fr       */
+/*   Updated: 2023/12/03 15:30:40 by tcharuel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static void	stack_swap(t_stack_node **stack)
 	t_stack_node	*node;
 
 	node = *stack;
-	length = get_stack_length(*stack);
+	length = get_stack_length(*stack, false);
 	if (length < 2)
 		return ;
 	else if (length == 2)
@@ -64,7 +64,7 @@ static void	stack_rotate(t_stack_node **stack, bool reverse)
 {
 	t_stack_node	*last_node;
 
-	if (get_stack_length(*stack) < 2)
+	if (get_stack_length(*stack, false) < 2)
 		return ;
 	last_node = get_last_node(*stack);
 	if (reverse)
