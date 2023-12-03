@@ -6,7 +6,7 @@
 /*   By: tcharuel <tcharuel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 18:14:37 by tcharuel          #+#    #+#             */
-/*   Updated: 2023/12/02 19:25:26 by tcharuel         ###   ########.fr       */
+/*   Updated: 2023/12/03 12:37:35 by tcharuel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,9 +41,10 @@ void	set_target_nodes(t_stack_node *stack_a, t_stack_node *stack_b)
 		while (target_stack)
 		{
 			if ((target_stack->number < stack_a->number
-					&& target_stack->number > stack_a->target_node->number)
-				|| (target_stack->number > stack_a->number
-					&& stack_a->target_node->number > stack_a->number))
+					&& (target_stack->number > stack_a->target_node->number
+						|| stack_a->target_node->number > stack_a->number))
+				|| (stack_a->target_node->number > stack_a->number
+					&& target_stack->number > stack_a->target_node->number))
 				stack_a->target_node = target_stack;
 			target_stack = target_stack->next;
 		}

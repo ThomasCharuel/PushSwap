@@ -6,7 +6,7 @@
 /*   By: tcharuel <tcharuel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 12:21:22 by tcharuel          #+#    #+#             */
-/*   Updated: 2023/12/02 19:24:31 by tcharuel         ###   ########.fr       */
+/*   Updated: 2023/12/03 12:37:55 by tcharuel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,6 @@ static void	push_optimal_node_from_a_to_b(t_stack_node **stack_a,
 			optimal_node = node;
 		node = node->next;
 	}
-	// ft_printf("Optimal move: ", );
 	while (optimal_node->ra_count || optimal_node->rb_count)
 	{
 		if (optimal_node->ra_count && optimal_node->rb_count)
@@ -95,6 +94,7 @@ static void	push_optimal_node_from_a_to_b(t_stack_node **stack_a,
 		}
 	}
 	do_move(MOVE_PB, stack_a, stack_b);
+	display_stacks(*stack_a, *stack_b);
 }
 
 static void	push_optimal_node_from_b_to_a(t_stack_node **stack_a,
@@ -120,13 +120,12 @@ void	sort_stack(t_stack_node **stack_a)
 			do_move(MOVE_PB, stack_a, &stack_b);
 			while (get_stack_length(*stack_a) > 3)
 				push_optimal_node_from_a_to_b(stack_a, &stack_b);
-			sort_three(stack_a);
 			display_stacks(*stack_a, stack_b);
+			sort_three(stack_a);
 			while (stack_b)
 				push_optimal_node_from_b_to_a(stack_a, &stack_b);
 			// Set proper order by rotating as needed.
 			// Utiliser la mediane pour savoir dans quel sens il faut sort
 		}
 	}
-	display_stacks(*stack_a, stack_b);
 }
