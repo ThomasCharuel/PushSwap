@@ -6,66 +6,88 @@
 /*   By: tcharuel <tcharuel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 18:14:37 by tcharuel          #+#    #+#             */
-/*   Updated: 2023/12/03 17:54:49 by tcharuel         ###   ########.fr       */
+/*   Updated: 2023/12/03 22:47:31 by tcharuel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
+void	set_rotations_count(t_stack_node *node, bool is_stack_a)
+{
+	if (is_stack_a)
+	{
+		node->ra_count = get_stack_length(node, false) - 1;
+		node->rb_count = get_stack_length(node->target_node, false) - 1;
+		node->rra_count = get_stack_length(node, true);
+		node->rrb_count = get_stack_length(node->target_node, true);
+	}
+	else
+	{
+		node->ra_count = get_stack_length(node->target_node, false) - 1;
+		node->rb_count = get_stack_length(node, false) - 1;
+		node->rra_count = get_stack_length(node->target_node, true);
+		node->rrb_count = get_stack_length(node, true);
+	}
+}
+void	set_node_moves(t_stack_node *node, int ra_count, int rb_count,
+		int rra_count, int rrb_count)
+{
+	node->ra_count = ra;
+	node->rb_count = rb;
+	node->rra_count = rra;
+	node->rrb_count = rrb;
+}
+
 void	set_moves_cost(t_stack_node *stack, bool is_stack_a)
 {
 	int	cost_with_rr;
 	int	cost_with_rrr;
+	int	cost;
 
 	while (stack)
 	{
-		if (is_stack_a)
-		{
-			stack->ra_count = get_stack_length(stack, false) - 1;
-			stack->rb_count = get_stack_length(stack->target_node, false) - 1;
-			stack->rra_count = get_stack_length(stack, true);
-			stack->rrb_count = get_stack_length(stack->target_node, true);
-		}
+		set_rotations_count(stack, is_stack_a);
+		cost_with_rr = ft_max(2, stack->ra_count, stack->rb_count);
+		cost_with_rrr = ft_max(2, stack->rra_count, stack->rrb_count);
+		stack->move_cost = ft_min(4, cost_with_rr, cost_with_rrr,
+				stack->ra_count + stack->rrb_count, stack->rra_count
+				+ stack->rb_count);
+		if (cost_with_rr == stack->move_cost)
+			set_node_moves(stack, stack->ra_count, stack->rb_count, 0, 0);
+		else if (cost_with_rrr == stack->move_cost)
+			set_node_moves(stack, 0, 0, stack->rra_count, stack->rrb_count);
+		else if (stack->ra_count + stack->rrb_count == stack->move_cost)
+			set_node_moves(stack, stack->ra_count, 0, stack->rra_count, 0);
 		else
-		{
-			stack->ra_count = get_stack_length(stack->target_node, false) - 1;
-			stack->rb_count = get_stack_length(stack, false) - 1;
-			stack->rra_count = get_stack_length(stack->target_node, true);
-			stack->rrb_count = get_stack_length(stack, true);
-		}
-		cost_with_rr = MAX(stack->ra_count, stack->rb_count);
-		cost_with_rrr = MAX(stack->rra_count, stack->rrb_count);
-		if (cost_with_rr < cost_with_rrr && cost_with_rr < (stack->ra_count
-				+ stack->rrb_count) && cost_with_rr < (stack->rra_count
-				+ stack->rb_count))
-		{
-			stack->rra_count = 0;
-			stack->rrb_count = 0;
-			stack->move_cost = cost_with_rr;
-		}
-		else if (cost_with_rrr < cost_with_rr && cost_with_rrr < stack->ra_count
-			+ stack->rrb_count && cost_with_rrr < stack->rra_count
-			+ stack->rb_count)
-		{
-			stack->ra_count = 0;
-			stack->rb_count = 0;
-			stack->move_cost = cost_with_rrr;
-		}
-		else if (stack->ra_count + stack->rrb_count < stack->rra_count
-			+ stack->rb_count)
-		{
-			stack->rb_count = 0;
-			stack->rra_count = 0;
-			stack->move_cost = stack->ra_count + stack->rrb_count;
-		}
-		else
-		{
-			stack->ra_count = 0;
-			stack->rrb_count = 0;
-			stack->move_cost = stack->rb_count + stack->rra_count;
-		}
+			set_node_moves(stack, 0, stack->rb_count, 0, stack->rrb_count);
 		stack = stack->next;
 	}
+}
+
+bool	should_be_new_target_node(int node_number, int current_target_number,
+		int candidate_target_number, bool is_stack_a)
+{
+	if (is_stack_a)
+	{
+		if (candidate_target_number < node_number
+			&& (candidate_target_number > current_target_number
+				|| current_target_number > node_number))
+			return (true);
+		if (current_target_number > node_number
+			&& candidate_target_number > current_target_number)
+			return (true);
+	}
+	else
+	{
+		if (candidate_target_number > node_number
+			&& (candidate_target_number < current_target_number
+				|| current_target_number < node_number))
+			return (true);
+		if (current_target_number < node_number
+			&& candidate_target_number < current_target_number)
+			return (true);
+	}
+	return (false);
 }
 
 void	set_target_nodes(t_stack_node *stack_from, t_stack_node *stack_to,
@@ -79,24 +101,10 @@ void	set_target_nodes(t_stack_node *stack_from, t_stack_node *stack_to,
 		stack_from->target_node = target_stack;
 		while (target_stack)
 		{
-			if (is_stack_a)
-			{
-				if ((target_stack->number < stack_from->number
-						&& (target_stack->number > stack_from->target_node->number
-							|| stack_from->target_node->number > stack_from->number))
-					|| (stack_from->target_node->number > stack_from->number
-						&& target_stack->number > stack_from->target_node->number))
-					stack_from->target_node = target_stack;
-			}
-			else
-			{
-				if ((target_stack->number > stack_from->number
-						&& (target_stack->number < stack_from->target_node->number
-							|| stack_from->target_node->number < stack_from->number))
-					|| (stack_from->target_node->number < stack_from->number
-						&& target_stack->number < stack_from->target_node->number))
-					stack_from->target_node = target_stack;
-			}
+			if (should_be_new_target_node(stack_from->number,
+					stack_from->target_node->number, target_stack->number,
+					is_stack_a))
+				stack_from->target_node = target_stack;
 			target_stack = target_stack->next;
 		}
 		stack_from = stack_from->next;

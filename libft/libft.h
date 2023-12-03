@@ -6,13 +6,14 @@
 /*   By: tcharuel <tcharuel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 15:01:58 by tcharuel          #+#    #+#             */
-/*   Updated: 2023/12/03 14:44:59 by tcharuel         ###   ########.fr       */
+/*   Updated: 2023/12/03 22:38:38 by tcharuel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LIBFT_H
 # define LIBFT_H
 
+# include <limits.h>
 # include <stdarg.h>
 # include <stdint.h>
 # include <stdlib.h>
@@ -31,9 +32,6 @@
 # define BASE_DECIMAL "0123456789"
 # define BASE_HEX_LOWERCASE "0123456789abcdef"
 # define BASE_HEX_UPPERCASE "0123456789ABCDEF"
-
-# define MIN(a, b) (((a) < (b)) ? (a) : (b))
-# define MAX(a, b) (((a) > (b)) ? (a) : (b))
 
 typedef struct s_substring
 {
@@ -120,5 +118,8 @@ char				*get_string_format(va_list args);
 char				*get_char_format(va_list args);
 char				*get_percent_format(void);
 char				*get_pointer_format(va_list args);
+
+int					ft_min(int count, ...);
+int					ft_max(int count, ...);
 
 #endif

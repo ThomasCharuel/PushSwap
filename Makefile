@@ -6,14 +6,14 @@
 #    By: tcharuel <tcharuel@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/02 13:33:40 by tcharuel          #+#    #+#              #
-#    Updated: 2023/12/02 18:16:48 by tcharuel         ###   ########.fr        #
+#    Updated: 2023/12/03 22:11:55 by tcharuel         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = push_swap
 
 SOURCES = main.c parse_args.c parsing_constraints.c stack_utils.c stack_display.c \
-			algorithm.c moves.c move_analysis.c
+			algorithm.c algorithm_2.c moves.c move_analysis.c
 
 CC = cc
 CFLAGS = -Wall -Wextra -Werror -g3
