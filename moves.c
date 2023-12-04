@@ -6,7 +6,7 @@
 /*   By: tcharuel <tcharuel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 12:25:22 by tcharuel          #+#    #+#             */
-/*   Updated: 2023/12/03 17:53:56 by tcharuel         ###   ########.fr       */
+/*   Updated: 2023/12/04 12:14:39 by tcharuel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,9 +112,11 @@ static void	print_move(t_move move)
 		ft_printf("rrr\n");
 }
 
-void	do_move(t_move move, t_stack_node **stack_a, t_stack_node **stack_b)
+void	do_move(t_move move, t_stack_node **stack_a, t_stack_node **stack_b,
+		bool should_print)
 {
-	print_move(move);
+	if (should_print)
+		print_move(move);
 	if (move == MOVE_SA || move == MOVE_SS)
 		stack_swap(stack_a);
 	if (move == MOVE_SB || move == MOVE_SS)

@@ -6,7 +6,7 @@
 /*   By: tcharuel <tcharuel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/01 16:44:20 by tcharuel          #+#    #+#             */
-/*   Updated: 2023/12/04 12:02:10 by tcharuel         ###   ########.fr       */
+/*   Updated: 2023/12/04 12:15:27 by tcharuel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ void	run_instructions(t_stack_node **stack_a)
 			free_stack(stack_b);
 			return ;
 		}
-		do_move(move, stack_a, &stack_b);
+		do_move(move, stack_a, &stack_b, false);
 		free(instruction);
 		instruction = get_next_line(STDIN_FILENO);
 	}

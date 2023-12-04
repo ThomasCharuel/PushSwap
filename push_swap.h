@@ -6,7 +6,7 @@
 /*   By: tcharuel <tcharuel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/01 17:20:47 by tcharuel          #+#    #+#             */
-/*   Updated: 2023/12/04 10:42:15 by tcharuel         ###   ########.fr       */
+/*   Updated: 2023/12/04 12:15:02 by tcharuel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ void					do_rr_moves(t_stack_node *node, t_stack_node **stack_a,
 void					rotate_stack_until_ordered(t_stack_node **stack);
 
 void					do_move(t_move move, t_stack_node **stack_a,
-							t_stack_node **stack_b);
+							t_stack_node **stack_b, bool should_print);
 
 void					set_target_nodes(t_stack_node *stack_a,
 							t_stack_node *stack_b, bool is_stack_a);

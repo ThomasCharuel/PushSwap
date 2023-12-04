@@ -6,7 +6,7 @@
 /*   By: tcharuel <tcharuel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/03 22:09:19 by tcharuel          #+#    #+#             */
-/*   Updated: 2023/12/04 10:55:27 by tcharuel         ###   ########.fr       */
+/*   Updated: 2023/12/04 12:50:06 by tcharuel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,11 @@ void	sort_three(t_stack_node **stack)
 	while (!is_stack_sorted(*stack))
 	{
 		if (get_stack_max_index(*stack) == 0)
-			do_move(MOVE_SA, stack, NULL);
+			do_move(MOVE_SA, stack, NULL, true);
 		else if (get_stack_max_index(*stack) == 1)
-			do_move(MOVE_RRA, stack, NULL);
+			do_move(MOVE_RRA, stack, NULL, true);
 		else
-			do_move(MOVE_RA, stack, NULL);
+			do_move(MOVE_RA, stack, NULL, true);
 	}
 }
 
@@ -48,13 +48,13 @@ static void	move_optimal_node(t_stack_node **stack_from,
 	{
 		do_r_moves(optimal_node, stack_from, stack_to);
 		do_rr_moves(optimal_node, stack_from, stack_to);
-		do_move(MOVE_PB, stack_from, stack_to);
+		do_move(MOVE_PB, stack_from, stack_to, true);
 	}
 	else
 	{
 		do_r_moves(optimal_node, stack_to, stack_from);
 		do_rr_moves(optimal_node, stack_to, stack_from);
-		do_move(MOVE_PA, stack_to, stack_from);
+		do_move(MOVE_PA, stack_to, stack_from, true);
 	}
 }
 
@@ -66,12 +66,12 @@ void	sort_stack(t_stack_node **stack_a)
 	if (!is_stack_sorted(*stack_a))
 	{
 		if (!(*stack_a)->next->next)
-			do_move(MOVE_RA, stack_a, &stack_b);
+			do_move(MOVE_RA, stack_a, &stack_b, true);
 		else if (!(*stack_a)->next->next->next)
 			sort_three(stack_a);
 		else
 		{
-			do_move(MOVE_PB, stack_a, &stack_b);
+			do_move(MOVE_PB, stack_a, &stack_b, true);
 			while (get_stack_length(*stack_a, false) > 3)
 				move_optimal_node(stack_a, &stack_b, true);
 			sort_three(stack_a);

@@ -6,7 +6,7 @@
 /*   By: tcharuel <tcharuel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 12:21:22 by tcharuel          #+#    #+#             */
-/*   Updated: 2023/12/03 22:11:43 by tcharuel         ###   ########.fr       */
+/*   Updated: 2023/12/04 12:49:37 by tcharuel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,18 +55,18 @@ void	do_r_moves(t_stack_node *node, t_stack_node **stack_a,
 	{
 		if (node->ra_count && node->rb_count)
 		{
-			do_move(MOVE_RR, stack_a, stack_b);
+			do_move(MOVE_RR, stack_a, stack_b, true);
 			node->ra_count--;
 			node->rb_count--;
 		}
 		else if (node->ra_count)
 		{
-			do_move(MOVE_RA, stack_a, stack_b);
+			do_move(MOVE_RA, stack_a, stack_b, true);
 			node->ra_count--;
 		}
 		else
 		{
-			do_move(MOVE_RB, stack_a, stack_b);
+			do_move(MOVE_RB, stack_a, stack_b, true);
 			node->rb_count--;
 		}
 	}
@@ -79,18 +79,18 @@ void	do_rr_moves(t_stack_node *node, t_stack_node **stack_a,
 	{
 		if (node->rra_count && node->rrb_count)
 		{
-			do_move(MOVE_RRR, stack_a, stack_b);
+			do_move(MOVE_RRR, stack_a, stack_b, true);
 			node->rra_count--;
 			node->rrb_count--;
 		}
 		else if (node->rra_count)
 		{
-			do_move(MOVE_RRA, stack_a, stack_b);
+			do_move(MOVE_RRA, stack_a, stack_b, true);
 			node->rra_count--;
 		}
 		else
 		{
-			do_move(MOVE_RRB, stack_a, stack_b);
+			do_move(MOVE_RRB, stack_a, stack_b, true);
 			node->rrb_count--;
 		}
 	}
@@ -107,7 +107,7 @@ void	rotate_stack_until_ordered(t_stack_node **stack)
 	{
 		while (stack_max_index)
 		{
-			do_move(MOVE_RRA, stack, NULL);
+			do_move(MOVE_RRA, stack, NULL, true);
 			stack_max_index--;
 		}
 	}
@@ -115,7 +115,7 @@ void	rotate_stack_until_ordered(t_stack_node **stack)
 	{
 		while (stack_max_index < stack_length)
 		{
-			do_move(MOVE_RA, stack, NULL);
+			do_move(MOVE_RA, stack, NULL, true);
 			stack_max_index++;
 		}
 	}
