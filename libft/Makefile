@@ -6,7 +6,7 @@
 #    By: tcharuel <tcharuel@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/02 13:33:40 by tcharuel          #+#    #+#              #
-#    Updated: 2023/12/03 22:51:44 by tcharuel         ###   ########.fr        #
+#    Updated: 2023/12/04 11:33:08 by tcharuel         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -61,7 +61,9 @@ SOURCES = ft_isalpha.c \
 	ft_interpret_substring.c \
 	ft_interpret_substring_format.c \
 	ft_substring.c \
-	ft_maths.c
+	ft_maths.c \
+	ft_get_next_line.c \
+	ft_get_next_line_utils.c
 
 OBJECTS = $(SOURCES:.c=.o)
 CC = cc

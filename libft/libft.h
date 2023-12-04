@@ -6,7 +6,7 @@
 /*   By: tcharuel <tcharuel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 15:01:58 by tcharuel          #+#    #+#             */
-/*   Updated: 2023/12/03 22:38:38 by tcharuel         ###   ########.fr       */
+/*   Updated: 2023/12/04 12:05:23 by tcharuel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,8 @@
 # define BASE_DECIMAL "0123456789"
 # define BASE_HEX_LOWERCASE "0123456789abcdef"
 # define BASE_HEX_UPPERCASE "0123456789ABCDEF"
+
+# define BUFFER_SIZE 40
 
 typedef struct s_substring
 {
@@ -65,6 +67,7 @@ int					ft_toupper(int c);
 int					ft_tolower(int c);
 char				*ft_strchr(const char *s, int c);
 char				*ft_strrchr(const char *s, int c);
+int					ft_strcmp(const char *s1, const char *s2);
 int					ft_strncmp(const char *s1, const char *s2, size_t n);
 void				*ft_memchr(const void *s, int c, size_t n);
 int					ft_memcmp(const void *s1, const void *s2, size_t n);
@@ -121,5 +124,14 @@ char				*get_pointer_format(va_list args);
 
 int					ft_min(int count, ...);
 int					ft_max(int count, ...);
+
+char				*get_next_line(int fd);
+ssize_t				read_in_stash(int fd, char **stash);
+char				*pick_line_in_stash(char **stash);
+
+size_t				ft_strlen_delimiter(const char *s, char c);
+char				*ft_strdup_lf(const char *src);
+int					ft_str_has_lf(char const *s);
+void				ft_strcpy(char *dst, const char *src);
 
 #endif
