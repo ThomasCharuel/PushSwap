@@ -6,7 +6,7 @@
 /*   By: tcharuel <tcharuel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 15:53:31 by tcharuel          #+#    #+#             */
-/*   Updated: 2023/12/04 10:54:15 by tcharuel         ###   ########.fr       */
+/*   Updated: 2023/12/04 13:00:04 by tcharuel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,5 +55,5 @@ bool	arg_has_correct_format(int parsed_number, char *str)
 			return (false);
 		i++;
 	}
-	return (digit_count > 0 && digit_count <= (int)ft_strlen(ft_itoa(INT_MAX)));
+	return (digit_count > 0 && digit_count <= 10);
 }
