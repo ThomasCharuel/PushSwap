@@ -6,7 +6,7 @@
 /*   By: tcharuel <tcharuel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 15:53:31 by tcharuel          #+#    #+#             */
-/*   Updated: 2023/12/02 17:01:26 by tcharuel         ###   ########.fr       */
+/*   Updated: 2023/12/04 10:54:15 by tcharuel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,20 +34,26 @@ bool	stack_has_duplicates(t_stack_node *stack)
 	return (false);
 }
 
-bool	is_str_numeric(char *str)
+bool	arg_has_correct_format(int parsed_number, char *str)
 {
 	int	i;
 	int	digit_count;
 
-	digit_count = 0;
+	if ((long)parsed_number != ft_atol(str))
+		return (false);
 	i = 0;
+	while (ft_isspace(str[i]))
+		i++;
+	while (str[i] == '-' || str[i] == '+')
+		i++;
+	digit_count = 0;
 	while (str[i])
 	{
 		if (ft_isdigit(str[i]))
 			digit_count++;
-		else if (!ft_isspace(str[i]) && !(str[i] == '-' || str[i] == '+'))
+		else
 			return (false);
 		i++;
 	}
-	return (digit_count > 0);
+	return (digit_count > 0 && digit_count <= (int)ft_strlen(ft_itoa(INT_MAX)));
 }

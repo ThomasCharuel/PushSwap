@@ -6,7 +6,7 @@
 /*   By: tcharuel <tcharuel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/03 22:09:19 by tcharuel          #+#    #+#             */
-/*   Updated: 2023/12/03 23:26:25 by tcharuel         ###   ########.fr       */
+/*   Updated: 2023/12/04 10:55:27 by tcharuel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ bool	is_stack_sorted(t_stack_node *stack_a)
 	}
 	return (true);
 }
+
 void	sort_three(t_stack_node **stack)
 {
 	while (!is_stack_sorted(*stack))

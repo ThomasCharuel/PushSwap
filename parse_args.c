@@ -6,7 +6,7 @@
 /*   By: tcharuel <tcharuel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 12:13:03 by tcharuel          #+#    #+#             */
-/*   Updated: 2023/12/02 17:12:26 by tcharuel         ###   ########.fr       */
+/*   Updated: 2023/12/04 10:42:44 by tcharuel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,8 @@ static t_stack_node	*get_stack_from_str(char *str)
 	while (int_arr[i])
 	{
 		parsed_number = ft_atoi(int_arr[i]);
-		if ((long)parsed_number != ft_atol(int_arr[i])
-			|| !is_str_numeric(int_arr[i]) || prepend_to_stack(&stack,
-				parsed_number) < 0)
+		if (!arg_has_correct_format(parsed_number, int_arr[i])
+			|| prepend_to_stack(&stack, parsed_number) < 0)
 		{
 			free_stack(stack);
 			free_strs(int_arr);
@@ -62,7 +61,7 @@ static t_stack_node	*get_stack_from_strs(int str_count, char **strs)
 	while (i < str_count)
 	{
 		parsed_number = ft_atoi(strs[i]);
-		if ((long)parsed_number != ft_atol(strs[i]) || !is_str_numeric(strs[i])
+		if (!arg_has_correct_format(parsed_number, strs[i])
 			|| prepend_to_stack(&stack, parsed_number) < 0)
 		{
 			free_stack(stack);
